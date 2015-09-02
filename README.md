@@ -25,16 +25,26 @@ let g:execute_ft_commands = {
 \}
 ```
 
+Patterns:  
+
+  - `{file}` will be replaced as fullpath of the file
+
 calling `ExecuteByFt` with the `command type` will execute the specific command for that filetype. Simple stuff.
 
 ## Example
 
 ```vim
 let g:execute_ft_commands = { 
-  \'javascript': { 'all': 'Dispatch npm test', 'single': 'Dispatch npm test -- %' },
-  \'ruby': { 'all': 'Rake spec test', 'single': 'Rake spec SPEC=%' }
+  \'javascript': { 'all': 'Dispatch npm test', 'single': 'Dispatch npm test -- {file}' },
+  \'ruby': { 'all': 'Rake spec test', 'single': 'Rake spec SPEC={file}' }
 \}
 
 map <silent> \a :call ExecuteByFT("all")<CR>
 map <silent> \t :call ExecuteByFT("single")<CR>
+map <silent> \\ :call ExecuteByFtLast()<CR>
 ```
+
+## Commands
+
+  - `ExecuteByFT(<type>)` - execute filetype command by its type
+  - `ExecuteFtLast()` - execute the last command
